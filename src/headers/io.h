@@ -1,0 +1,2 @@
+char editorReadKey();
+void editorProcessKeypress();

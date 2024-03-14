@@ -32,3 +32,11 @@ void enableRawMode() {
     
     if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) die("tcsetattr");
 }
+
+
+// clears terminal screen
+// https://en.wikipedia.org/wiki/VT100
+// https://vt100.net/docs/vt100-ug/chapter3.html#ED
+void clearTerminal() {
+    write(STDOUT_FILENO, "\x1b[2J", 4);
+}
