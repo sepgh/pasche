@@ -39,4 +39,5 @@ void enableRawMode() {
 // https://vt100.net/docs/vt100-ug/chapter3.html#ED
 void clearTerminal() {
     write(STDOUT_FILENO, "\x1b[2J", 4);
+    write(STDOUT_FILENO, "\x1b[H", 3);
 }
