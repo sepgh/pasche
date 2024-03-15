@@ -18,7 +18,7 @@ void editorProcessKeypress() {
     char c = editorReadKey();
     switch (c) {
         case CTRL_KEY('q'):
-            clearTerminal();
+            fullClearTerminal();
             exit(0);
             break;
     }

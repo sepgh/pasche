@@ -4,6 +4,7 @@ void die(const char *s);
 void enableRawMode();
 void disableRawMode();
 void clearTerminal();
+void fullClearTerminal();
 
 /* Definitions */
 
