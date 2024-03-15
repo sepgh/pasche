@@ -3,12 +3,25 @@
 #include <unistd.h>
 #include <stdio.h>
 
-struct termios orig_termios;
+
+// clears terminal screen
+// https://en.wikipedia.org/wiki/VT100
+// https://vt100.net/docs/vt100-ug/chapter3.html#ED
+void clearTerminal() {
+    write(STDOUT_FILENO, "\x1b[2J", 4);
+    write(STDOUT_FILENO, "\x1b[H", 3);
+}
 
 void die(const char *s) {
+    clearTerminal();
     perror(s);
     exit(1);
 }
+
+
+/* RAW MODE */
+
+struct termios orig_termios;
 
 void disableRawMode() {
     if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &orig_termios) == -1)
@@ -31,13 +44,4 @@ void enableRawMode() {
     raw.c_cc[VTIME] = 1;
     
     if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == -1) die("tcsetattr");
-}
-
-
-// clears terminal screen
-// https://en.wikipedia.org/wiki/VT100
-// https://vt100.net/docs/vt100-ug/chapter3.html#ED
-void clearTerminal() {
-    write(STDOUT_FILENO, "\x1b[2J", 4);
-    write(STDOUT_FILENO, "\x1b[H", 3);
 }
