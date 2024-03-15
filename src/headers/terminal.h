@@ -5,6 +5,8 @@ void enableRawMode();
 void disableRawMode();
 void clearTerminal();
 void fullClearTerminal();
+void getWindowSize(int *rows, int *cols);
+void initEditor()
 
 /* Definitions */
 

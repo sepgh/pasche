@@ -2,19 +2,26 @@
 #include <termios.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <sys/ioctl.h>
 
 
 /* --- DATA --- */
 struct editorConfig {
-  struct termios orig_termios;
+    struct termios orig_termios;
+    int screenrows;
+    int screencols;
 };
 
 struct editorConfig E;
 
 
+
+
+/* --- API --- */
+
 void editorDrawRows() {
     int y;
-    for (y = 0; y < 24; y++) {
+    for (y = 0; y < E.screenrows; y++) {
         write(STDOUT_FILENO, "~\r\n", 3);
     }
 }
@@ -67,3 +74,17 @@ void enableRawMode() {
 }
 
 
+int getWindowSize(int *rows, int *cols) {
+    struct winsize ws;
+    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &ws) == -1 || ws.ws_col == 0) {
+        return -1;
+    } else {
+        *cols = ws.ws_col;
+        *rows = ws.ws_row;
+        return 0;
+    }
+}
+
+void initEditor() {
+    if (getWindowSize(&E.screenrows, &E.screencols) == -1) die("getWindowSize");
+}
