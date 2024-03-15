@@ -1,10 +1,9 @@
-#include "headers/io.h"
-#include "headers/terminal.h"
+#include "headers/editor.h"
 
 
 int main() {
     enableRawMode();
-
+    initEditor();
     while (1) {
         clearTerminal();
         editorProcessKeypress();
