@@ -5,7 +5,7 @@
    https://vt100.net/docs/vt100-ug/chapter3.html#ED
 */
 void fullClearTerminal();
-void clearTerminal();
+void editorRefreshScreen();
 
 
 void die(const char *s);
