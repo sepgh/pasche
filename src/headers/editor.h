@@ -24,3 +24,4 @@ void initEditor();
 char editorReadKey();
 void editorProcessKeypress();
 void editorDrawRows();
+int getCursorPosition(int *rows, int *cols);
