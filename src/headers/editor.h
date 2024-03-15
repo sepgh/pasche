@@ -1,3 +1,4 @@
+#include "buf.h"
 /* Definitions */
 
 /*
@@ -10,28 +11,27 @@ https://viewsourcecode.org/snaptoken/kilo/03.rawInputAndOutput.html#press-ctrl-q
 #define CTRL_KEY(k) ((k) & 0x1f)
 #define PASCHE_VERSION "0.0.1"
 
-/* clears terminal screen
-   https://en.wikipedia.org/wiki/VT100
-   https://vt100.net/docs/vt100-ug/chapter3.html#ED
-*/
+/* EDITOR */
+
+void editorDrawRows(struct abuf *ab);
+
+// clears terminal screen
+// https://en.wikipedia.org/wiki/VT100
+// https://vt100.net/docs/vt100-ug/chapter3.html#ED
 void fullClearTerminal();
 void editorRefreshScreen();
-
-
 void die(const char *s);
-int getWindowSize(int *rows, int *cols);
-
 
 /* RAW MODE */
 
 void disableRawMode();
 void enableRawMode();
 
+/* EDITING */
 
-/* EDITOR */
-
-void initEditor();
-char editorReadKey();
+void editorMoveCursor(int key);
+int editorReadKey();
 void editorProcessKeypress();
-void editorDrawRows();
 int getCursorPosition(int *rows, int *cols);
+int getWindowSize(int *rows, int *cols);
+void initEditor();
